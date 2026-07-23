@@ -1,0 +1,109 @@
+{
+  "header": {
+    "catalog": "Catalog",
+    "farmers": "Farmers",
+    "transport": "Transport",
+    "prices": "Prices",
+    "about": "About",
+    "contacts": "Contacts",
+    "sell": "Sell",
+    "searchPlaceholder": "Search products/farmers/transport",
+    "login": "Log in",
+    "register": "Sign up"
+  },
+  "hero": {
+    "badge": "Straight from verified farmers",
+    "title": "Fresh produce from Kyrgyzstan's farmers",
+    "subtitle": "Buy and sell farm produce wholesale or retail. Transparent prices, delivery, and direct chat with the producer.",
+    "ctaPrimary": "Shop products",
+    "ctaSecondary": "Start selling",
+    "stats": {
+      "farmers": "farmers",
+      "products": "items sold",
+      "regions": "regions"
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "all": "All categories",
+    "vegetables": "Vegetables",
+    "fruits": "Fruit",
+    "grains": "Grains",
+    "dairy": "Dairy",
+    "meat": "Meat",
+    "honey": "Honey"
+  },
+  "products": {
+    "title": "Popular products",
+    "tabs": {
+      "all": "All",
+      "popular": "Popular",
+      "new": "New",
+      "cheap": "Cheapest"
+    },
+    "addToCart": "Add to cart",
+    "perKg": "som/kg",
+    "minOrder": "from {{count}} kg",
+    "badgeVip": "VIP",
+    "badgeOrganic": "Organic",
+    "items": {
+      "potato": { "name": "Potatoes" },
+      "apple": { "name": "Apples" },
+      "tomato": { "name": "Tomatoes" },
+      "onion": { "name": "Onions" },
+      "honey": { "name": "Honey" },
+      "carrot": { "name": "Carrots" },
+      "strawberry": { "name": "Strawberries" },
+      "banana": { "name": "Bananas" }
+    }
+  },
+  "farmers": {
+    "title": "Farmers",
+    "profile": "Profile",
+    "products": "products",
+    "people": {
+      "azamat": { "name": "Azamat Uulu A", "specialty": "\"Bereke\" farm co-op", "location": "Osh Region" },
+      "gulmira": { "name": "Gulmira A", "specialty": "\"Osh Gulu\" greenhouses", "location": "Osh Region" },
+      "akterek": { "name": "\"Ak-Terek\" Orchard", "specialty": "Honey & beekeeping", "location": "Osh Region" },
+      "bakyt": { "name": "Bakyt K", "specialty": "Fruit farm", "location": "Naryn Region" }
+    }
+  },
+  "transport": {
+    "title": "Transport",
+    "order": "Contact",
+    "items": {
+      "reefer": { "name": "Isuzu Reefer Truck", "capacity": "5t capacity", "region": "Osh Region" },
+      "gazelle": { "name": "Gazelle Van", "capacity": "1t capacity", "region": "Jalal-Abad Region" },
+      "kamaz": { "name": "KamAZ Flatbed", "capacity": "2t capacity", "region": "Chuy Region" }
+    },
+    "priceFrom": "from"
+  },
+  "priceStats": {
+    "title": "Price statistics",
+    "items": {
+      "potato": "Potatoes",
+      "tomato": "Tomatoes",
+      "onion": "Onions",
+      "apple": "Apples",
+      "strawberry": "Strawberries"
+    }
+  },
+  "footer": {
+    "tagline": "A marketplace for Kyrgyzstan's farm produce. Direct connection between farmers, buyers and transport.",
+    "marketplace": "Marketplace",
+    "catalog": "Catalog",
+    "categories": "Categories",
+    "transport": "Transport",
+    "farmersLink": "Farmers",
+    "priceStatsLink": "Price statistics",
+    "sellers": "For sellers",
+    "addProduct": "Add a product",
+    "verification": "Verification",
+    "pricing": "Pricing",
+    "support": "Help",
+    "contacts": "Contacts",
+    "languages": "KG · RU · EN",
+    "rights": "All rights reserved."
+  },
+  "currency": "som"
+}

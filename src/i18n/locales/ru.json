@@ -1,0 +1,111 @@
+{
+  "header": {
+    "catalog": "Каталог",
+    "farmers": "Фермеры",
+    "transport": "Транспорт",
+    "prices": "Цены",
+    "about": "О нас",
+    "contacts": "Контакты",
+    "sell": "Продавать",
+    "searchPlaceholder": "Поиск товаров/фермеров/транспорта",
+    "login": "Войти",
+    "register": "Регистрация"
+  },
+  "hero": {
+    "badge": "Напрямую от проверенных фермеров",
+    "title": "Свежие продукты от фермеров Кыргызстана",
+    "subtitle": "Покупайте и продавайте сельхозпродукцию оптом и в розницу. Прозрачные цены, доставка и прямой чат с производителем.",
+    "ctaPrimary": "Купить продукцию",
+    "ctaSecondary": "Начать продавать",
+    "stats": {
+      "farmers": "фермеров",
+      "products": "товаров продано",
+      "regions": "регионов"
+    }
+  },
+  "categories": {
+    "title": "Категории",
+    "all": "Все категории",
+    "vegetables": "Овощи",
+    "fruits": "Фрукты",
+    "grains": "Зерновые",
+    "dairy": "Молочные",
+    "meat": "Мясо",
+    "honey": "Мёд"
+  },
+  "products": {
+    "title": "Популярные товары",
+    "tabs": {
+      "all": "Все",
+      "popular": "Популярные",
+      "new": "Новые",
+      "cheap": "Дешевле"
+    },
+    "addToCart": "В корзину",
+    "perKg": "сом/кг",
+    "minOrder": "от {{count}} кг",
+    "badgeVip": "VIP",
+    "badgeOrganic": "Органик",
+    "items": {
+      "potato": { "name": "Картофель" },
+      "apple": { "name": "Яблоки" },
+      "tomato": { "name": "Помидоры" },
+      "onion": { "name": "Лук репчатый" },
+      "honey": { "name": "Мёд" },
+      "carrot": { "name": "Морковь" },
+      "strawberry": { "name": "Клубника" },
+      "banana": { "name": "Бананы" }
+    }
+  },
+  "farmers": {
+    "title": "Фермеры",
+    "profile": "Профиль",
+    "products": "товаров",
+    "people": {
+      "azamat": { "name": "Азамт Уулу А", "specialty": "КК «Береке»", "location": "Ошская обл" },
+      "gulmira": { "name": "Гульмира А", "specialty": "Теплицы «Ош гүлү»", "location": "Ошская обл" },
+      "akterek": { "name": "Сад «Ак-Терек»", "specialty": "Мёд и пчеловодство", "location": "Ошская обл" },
+      "bakyt": { "name": "Бакыт К", "specialty": "Фруктовое хоз-во", "location": "Нарынская обл" }
+    }
+  },
+  "transport": {
+    "title": "Транспорт",
+    "order": "Связаться",
+    "items": {
+      "reefer": { "name": "Рефрижератор - Isuzu", "capacity": "Вместимость 5т", "region": "по Ошской обл" },
+      "gazelle": { "name": "Газель тент", "capacity": "Вместимость 1т", "region": "по Джал.обл" },
+      "kamaz": { "name": "КамАЗ бортовой", "capacity": "Вместимость 2т", "region": "по Чуйской обл" }
+    },
+    "priceFrom": "от"
+  },
+  "priceStats": {
+    "title": "Статистика цен",
+    "items": {
+      "potato": "Картофель",
+      "tomato": "Помидор",
+      "onion": "Лук",
+      "apple": "Яблоки",
+      "strawberry": "Клубника"
+    }
+  },
+  "footer": {
+    "tagline": "Маркетплейс сельхозпродукции Кыргызстана. Прямая связь фермеров, покупателей и транспорта.",
+    "marketplace": "Маркетплейс",
+    "catalog": "Каталог",
+    "categories": "Категории",
+    "transport": "Транспорт",
+    "farmersLink": "Фермеры",
+    "priceStatsLink": "Статистика цен",
+    "sellers": "Продавцам",
+    "addProduct": "Добавить товар",
+    "verification": "Верификация",
+    "pricing": "Тарифы",
+    "support": "Помощь",
+    "contacts": "Контакты",
+    "languages": "KG · RU · EN",
+    "rights": "Все права защищены."
+  },
+  "currency": "сом"
+}
+
+
