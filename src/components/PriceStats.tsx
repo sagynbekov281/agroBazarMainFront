@@ -1,3 +1,4 @@
+// src/components/PriceStats.tsx
 import { useTranslation } from 'react-i18next'
 import { priceStats } from '../data/content'
 

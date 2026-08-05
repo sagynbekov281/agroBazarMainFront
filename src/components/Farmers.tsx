@@ -1,3 +1,4 @@
+// src/components/Farmers.tsx
 import { useTranslation } from 'react-i18next'
 import { Star, User } from 'lucide-react'
 import { farmers } from '../data/content'

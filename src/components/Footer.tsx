@@ -1,3 +1,4 @@
+// src/components/Footer.tsx
 import { useTranslation } from 'react-i18next'
 import { Leaf, Phone, Mail } from 'lucide-react'
 

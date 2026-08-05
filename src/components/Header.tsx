@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Leaf, Search, Bell, MessageCircle, Heart, Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 export default function Header() {
   const { t, i18n } = useTranslation()
+  const { isAuthenticated, phone } = useAuth()
   const [open, setOpen] = useState(false)
+
 
   const toggleLang = () => {
     i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')
@@ -22,14 +26,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white">
       {/* top row */}
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-        <a href="#top" className="flex shrink-0 items-center gap-2">
+        <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white">
             <Leaf size={16} strokeWidth={2.5} />
           </span>
           <span className="text-base font-extrabold tracking-tight text-stone-900 sm:text-lg">
             Agro<span className="text-brand-500">Bazar</span>
           </span>
-        </a>
+        </Link>
 
         <div className="relative hidden flex-1 md:block">
           <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
@@ -59,18 +63,29 @@ export default function Header() {
             {i18n.language === 'ru' ? 'RU' : 'EN'}
           </button>
 
-          <a
-            href="#login"
-            className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100 sm:inline-block"
-          >
-            {t('header.login')}
-          </a>
-          <a
-            href="#sell"
-            className="hidden rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-500/25 transition hover:bg-brand-600 sm:inline-block"
-          >
-            {t('header.register')}
-          </a>
+          {isAuthenticated ? (
+            <Link
+              to="/profile"
+              className="hidden rounded-full bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-800 transition hover:bg-stone-200 sm:inline-block"
+            >
+              Профиль ({phone})
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100 sm:inline-block"
+              >
+                {t('header.login')}
+              </Link>
+              <Link
+                to="/register"
+                className="hidden rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-500/25 transition hover:bg-brand-600 sm:inline-block"
+              >
+                {t('header.register')}
+              </Link>
+            </>
+          )}
 
           <button
             className="flex h-9 w-9 items-center justify-center rounded-full text-stone-700 md:hidden"
@@ -115,12 +130,28 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
-            <a href="#login" className="text-sm font-semibold text-stone-700">
-              {t('header.login')}
-            </a>
-            <a href="#sell" className="mt-1 rounded-full bg-brand-500 px-4 py-2 text-center text-sm font-semibold text-white">
-              {t('header.register')}
-            </a>
+            {isAuthenticated ? (
+              <Link
+                to="/profile"
+                className="text-sm font-semibold text-stone-700"
+                onClick={() => setOpen(false)}
+              >
+                Профиль ({phone})
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className="text-sm font-semibold text-stone-700" onClick={() => setOpen(false)}>
+                  {t('header.login')}
+                </Link>
+                <Link
+                  to="/register"
+                  className="mt-1 rounded-full bg-brand-500 px-4 py-2 text-center text-sm font-semibold text-white"
+                  onClick={() => setOpen(false)}
+                >
+                  {t('header.register')}
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}

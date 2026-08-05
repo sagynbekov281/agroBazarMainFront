@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Check, ArrowRight } from 'lucide-react'
+import mainphoto from '../assets/image 67.png'
 
 export default function Hero() {
   const { t } = useTranslation()
@@ -13,9 +14,9 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-white">
       {/* fading field photo, right side */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block">
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[50%] lg:block">
         <img
-          src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1200&q=80"
+          src={mainphoto}
           alt=""
           className="h-full w-full object-cover"
         />
