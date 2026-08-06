@@ -17,7 +17,7 @@ const tabs: { id: Tab; label: string; icon: typeof LayoutGrid }[] = [
 ]
 
 export default function Profile() {
-  const { isAuthenticated, logout } = useAuth()
+  const { isAuthenticated, logout, refreshDisplayName } = useAuth()
   const [tab, setTab] = useState<Tab>('overview')
   const [profile, setProfile] = useState<ProfileData | null>(null)
   const [form, setForm] = useState<Partial<ProfileData>>({})
@@ -44,6 +44,7 @@ export default function Profile() {
     try {
       const { data } = await updateMyProfile(form)
       setProfile(data)
+      await refreshDisplayName()
     } finally {
       setSaving(false)
     }

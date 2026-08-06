@@ -14,24 +14,33 @@ export default function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
-    try {
-      const { data } = await loginUser({ identifier, password })
-      login(data.access, data.refresh, identifier)
-      navigate('/profile')
-    } catch (err) {
-      if (isAxiosError(err)) {
-        setError(err.response?.data?.error?.message || 'Неверные данные для входа')
-      } else {
-        setError('Ошибка входа')
-      }
-    } finally {
-      setLoading(false)
+ const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault()
+  setError('')
+  setLoading(true)
+  try {
+    const response = await loginUser({ identifier, password })
+    const access = response.data?.access
+    const refresh = response.data?.refresh
+
+    if (!access || !refresh) {
+      setError('Сервер не вернул токены авторизации')
+      console.error('Неожиданный формат ответа /auth/login:', response.data)
+      return
     }
+
+    login(access, refresh, identifier)
+    navigate('/profile')
+  } catch (err) {
+    if (isAxiosError(err)) {
+      setError(err.response?.data?.error?.message || err.response?.data?.message || 'Неверные данные для входа')
+    } else {
+      setError('Ошибка входа')
+    }
+  } finally {
+    setLoading(false)
   }
+}
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-stone-50 px-4">

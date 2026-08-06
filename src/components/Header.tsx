@@ -1,17 +1,35 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Leaf, Search, Bell, MessageCircle, Heart, Menu, X } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Leaf, Search, Bell, MessageCircle, Heart, ShoppingBasket, Menu, X, ChevronDown, User, LogOut } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function Header() {
   const { t, i18n } = useTranslation()
-  const { isAuthenticated, phone } = useAuth()
+  const { isAuthenticated, displayName, phone, logout } = useAuth()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const toggleLang = () => {
     i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')
+  }
+
+  const handleLogout = () => {
+    logout()
+    setMenuOpen(false)
+    navigate('/')
   }
 
   const navItems = [
@@ -54,6 +72,9 @@ export default function Header() {
           <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Favorites">
             <Heart size={18} />
           </button>
+          <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Cart">
+            <ShoppingBasket size={18} />
+          </button>
 
           <button
             onClick={toggleLang}
@@ -64,17 +85,48 @@ export default function Header() {
           </button>
 
           {isAuthenticated ? (
-            <Link
-              to="/profile"
-              className="hidden rounded-full bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-800 transition hover:bg-stone-200 sm:inline-block"
-            >
-              Профиль ({phone})
-            </Link>
+            <div className="relative hidden sm:block" ref={menuRef}>
+              <button
+                onClick={() => setMenuOpen((v) => !v)}
+                className="flex items-center gap-2 rounded-full px-2 py-1.5 transition hover:bg-stone-100"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-200 text-stone-500">
+                  <User size={16} />
+                </span>
+                <span className="text-sm font-semibold text-stone-800">
+                  {displayName || phone}
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={`text-stone-500 transition ${menuOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {menuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 rounded-xl border border-stone-100 bg-white py-1.5 shadow-lg">
+                  <Link
+                    to="/profile"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+                  >
+                    <User size={16} />
+                    Профиль
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                  >
+                    <LogOut size={16} />
+                    Выйти
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <Link
                 to="/login"
-                className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100 sm:inline-block"
+                className="hidden rounded-full border border-stone-200 px-3.5 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100 sm:inline-block"
               >
                 {t('header.login')}
               </Link>
@@ -131,13 +183,24 @@ export default function Header() {
               </a>
             ))}
             {isAuthenticated ? (
-              <Link
-                to="/profile"
-                className="text-sm font-semibold text-stone-700"
-                onClick={() => setOpen(false)}
-              >
-                Профиль ({phone})
-              </Link>
+              <>
+                <Link
+                  to="/profile"
+                  className="text-sm font-semibold text-stone-700"
+                  onClick={() => setOpen(false)}
+                >
+                  Профиль ({displayName || phone})
+                </Link>
+                <button
+                  onClick={() => {
+                    setOpen(false)
+                    handleLogout()
+                  }}
+                  className="text-left text-sm font-semibold text-red-600"
+                >
+                  Выйти
+                </button>
+              </>
             ) : (
               <>
                 <Link to="/login" className="text-sm font-semibold text-stone-700" onClick={() => setOpen(false)}>

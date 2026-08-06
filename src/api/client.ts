@@ -6,6 +6,15 @@ export const api = axios.create({
   baseURL: BASE_URL,
 })
 
+// Разворачиваем конверт { success, data } -> data, если он есть
+api.interceptors.response.use((response) => {
+  const body = response.data
+  if (body && typeof body === 'object' && 'success' in body && 'data' in body) {
+    response.data = body.data
+  }
+  return response
+})
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token')
   if (token) {
@@ -21,8 +30,12 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config
+    const isAuthEndpoint =
+      originalRequest?.url?.includes('/auth/login') ||
+      originalRequest?.url?.includes('/auth/register') ||
+      originalRequest?.url?.includes('/auth/refresh')
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
       const refreshToken = localStorage.getItem('refresh_token')
       if (!refreshToken) {
         return Promise.reject(error)
@@ -41,7 +54,8 @@ api.interceptors.response.use(
         const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
           refresh: refreshToken,
         })
-        localStorage.setItem('access_token', data.access)
+        const access = data?.data?.access || data?.access
+        localStorage.setItem('access_token', access)
         queue.forEach((cb) => cb())
         queue = []
         return api(originalRequest)
