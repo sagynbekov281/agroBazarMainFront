@@ -1,6 +1,6 @@
 // src/components/Footer.tsx
 import { useTranslation } from 'react-i18next'
-import { Leaf, Phone, Mail } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 
 export default function Footer() {
   const { t } = useTranslation()
@@ -26,11 +26,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500 text-white">
-                <Leaf size={18} strokeWidth={2.5} />
-              </span>
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                Agro<span className="text-amber-400">Bazar</span>
+              <img
+                src="/mainIcon.svg"
+                alt="AgroBazar"
+                className="h-10 w-10 rounded-xl object-cover"
+              />
+              <span className="text-lg font-black tracking-[-0.06em] text-[#A7E0B0]">
+                Agro<span className="text-[#DFF8E2]">Bazar</span>
               </span>
             </div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone-400">{t('footer.tagline')}</p>

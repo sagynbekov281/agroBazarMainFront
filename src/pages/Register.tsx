@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Leaf } from 'lucide-react'
 import { registerUser } from '../api/auth'
 import { isAxiosError } from 'axios'
 
@@ -54,11 +53,13 @@ export default function Register() {
     <div className="flex min-h-screen items-center justify-center bg-stone-50 px-4 py-10">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm">
         <div className="mb-6 flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white">
-            <Leaf size={16} strokeWidth={2.5} />
-          </span>
-          <span className="text-lg font-extrabold text-stone-900">
-            Agro<span className="text-brand-500">Bazar</span>
+          <img
+            src="/mainIcon.svg"
+            alt="AgroBazar"
+            className="h-10 w-10 rounded-lg object-cover"
+          />
+          <span className="text-lg font-black tracking-[-0.06em] text-[#2C7A43]">
+            Agro<span className="text-[#46A14D]">Bazar</span>
           </span>
         </div>
 

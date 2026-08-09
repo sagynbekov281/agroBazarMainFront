@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Leaf, Search, Bell, MessageCircle, Heart, ShoppingBasket, Menu, X, ChevronDown, User, LogOut } from 'lucide-react'
+import { Search, Menu, X, ChevronDown, User, LogOut } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -36,44 +36,48 @@ export default function Header() {
     { label: t('header.catalog'), href: '#top' },
     { label: t('header.farmers'), href: '#farmers' },
     { label: t('header.transport'), href: '#transport' },
-    { label: t('header.prices'), href: '#transport' },
+    { label: 'Карта', href: '#transport' },
     { label: t('header.about'), href: '#footer' },
   ]
 
   return (
     <header className="sticky top-0 z-50 bg-white">
       {/* top row */}
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white">
-            <Leaf size={16} strokeWidth={2.5} />
-          </span>
-          <span className="text-base font-extrabold tracking-tight text-stone-900 sm:text-lg">
-            Agro<span className="text-brand-500">Bazar</span>
+          <img
+            src="/mainIcon.svg"
+            alt="AgroBazar"
+            className="h-10 w-10 rounded-lg object-cover shadow-sm shadow-emerald-900/10"
+          />
+          <span className="text-2xl font-black tracking-[-0.06em] text-[#E3A83F] sm:text-3xl">
+            Agro<span className="text-[#3DA35D]">Bazar</span>
           </span>
         </Link>
 
-        <div className="relative hidden flex-1 md:block">
-          <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
-          <input
-            type="text"
-            placeholder={t('header.searchPlaceholder')}
-            className="w-full rounded-full border border-stone-200 bg-stone-50 py-2.5 pl-11 pr-4 text-sm text-stone-700 placeholder:text-stone-400 outline-none transition focus:border-brand-300 focus:bg-white focus:ring-2 focus:ring-brand-100"
-          />
+        <div className="hidden justify-center md:flex">
+          <div className="relative w-full max-w-md">
+            <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" />
+            <input
+              type="text"
+              placeholder={t('header.searchPlaceholder')}
+              className="w-full rounded-xl border border-stone-200 bg-stone-50 py-2.5 pl-11 pr-4 text-sm text-stone-700 placeholder:text-stone-400 outline-none transition focus:border-brand-300 focus:bg-white focus:ring-2 focus:ring-brand-100"
+            />
+          </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
-          <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Notifications">
-            <Bell size={18} />
+        <div className="flex items-center justify-end gap-1 sm:gap-2">
+          <button className="hidden h-10 w-10 items-center justify-center rounded-full transition hover:bg-stone-100 sm:flex" aria-label="Notifications">
+            <img src="/messang.svg" alt="" className="h-[22px] w-[22px]" />
           </button>
-          <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Messages">
-            <MessageCircle size={18} />
+          <button className="hidden h-10 w-10 items-center justify-center rounded-full transition hover:bg-stone-100 sm:flex" aria-label="Messages">
+            <img src="/chat.svg" alt="" className="h-[22px] w-[22px]" />
           </button>
-          <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Favorites">
-            <Heart size={18} />
+          <button className="hidden h-10 w-10 items-center justify-center rounded-full transition hover:bg-stone-100 sm:flex" aria-label="Favorites">
+            <img src="/heart.svg" alt="" className="h-[22px] w-[22px]" />
           </button>
-          <button className="hidden h-9 w-9 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:flex" aria-label="Cart">
-            <ShoppingBasket size={18} />
+          <button className="hidden h-10 w-10 items-center justify-center rounded-full transition hover:bg-stone-100 sm:flex" aria-label="Cart">
+            <img src="/corzinka.svg" alt="" className="h-[22px] w-[22px]" />
           </button>
 
           <button
@@ -173,7 +177,7 @@ export default function Header() {
             <input
               type="text"
               placeholder={t('header.searchPlaceholder')}
-              className="w-full rounded-full border border-stone-200 bg-stone-50 py-2.5 pl-11 pr-4 text-sm outline-none"
+              className="w-full rounded-xl border border-stone-200 bg-stone-50 py-2.5 pl-11 pr-4 text-sm outline-none"
             />
           </div>
           <nav className="flex flex-col gap-3">

@@ -14,13 +14,21 @@ export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-white">
       {/* fading field photo, right side */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[50%] lg:block">
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] lg:block">
         <img
           src={mainphoto}
           alt=""
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent" />
+        {/* Быстрый переход в белый только у самого края текста —
+            дальше фото остаётся полностью насыщенным, как на референсе */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to right, white 0%, white 8%, rgba(255,255,255,0) 32%)',
+          }}
+        />
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

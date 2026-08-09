@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 import {
   LogOut,
   Leaf,
@@ -214,61 +214,65 @@ export default function Profile() {
       className="min-h-screen bg-stone-100"
       style={{ fontFamily: "'Nunito', system-ui, sans-serif" }}
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:flex-row lg:px-8 lg:py-8">
-        {/* Sidebar */}
-        <aside className="flex w-full flex-col rounded-2xl bg-[#242424] p-4 text-stone-400 lg:w-64 lg:shrink-0">
-          <div className="mb-6 flex items-center gap-2 px-2 pt-1">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#3DA35D]">
-              <Leaf size={16} className="text-white" />
-            </span>
-            <span className="text-lg font-extrabold">
-              <span className="text-[#E3A83F]">Agro</span>
-              <span className="text-[#3DA35D]">Bazar</span>
-            </span>
-          </div>
+      {/* Sidebar — на десктопе зафиксирована на весь экран по высоте, слева, без отступов */}
+      <aside className="flex w-full flex-col bg-[#242424] p-4 text-stone-400 lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-64 lg:overflow-y-auto lg:rounded-none">
+        <Link
+          to="/"
+          className="mb-6 flex items-center gap-2 px-2 pt-1 transition hover:opacity-80"
+        >
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#3DA35D]">
+            <Leaf size={16} className="text-white" />
+          </span>
+          <span className="text-lg font-extrabold">
+            <span className="text-[#E3A83F]">Agro</span>
+            <span className="text-[#3DA35D]">Bazar</span>
+          </span>
+        </Link>
 
-          <nav className="flex flex-row flex-wrap gap-1 lg:flex-col">
-            {tabs.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => setTab(id)}
-                className={`flex shrink-0 items-center gap-3 rounded-full px-3.5 py-2.5 text-sm font-bold transition ${
-                  tab === id
-                    ? 'bg-[#3DA35D] text-white'
-                    : 'text-stone-400 hover:bg-white/5 hover:text-stone-200'
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                    tab === id ? 'bg-white' : 'bg-stone-500'
-                  }`}
-                />
-                {label}
-              </button>
-            ))}
-          </nav>
-
-          <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 lg:mt-6">
-            <div className="h-9 w-9 shrink-0 rounded-full bg-stone-600" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-bold text-white">{displayName}</p>
-              <p className="truncate text-xs font-semibold text-[#3DA35D]">
-                {profile?.role === 'farmer' ? 'Фермер' : 'Покупатель'}
-                {(profile as ProfileData & { is_vip?: boolean })?.is_vip ? ' · VIP' : ''}
-              </p>
-            </div>
+        <nav className="flex flex-row flex-wrap gap-1 lg:flex-col">
+          {tabs.map(({ id, label }) => (
             <button
-              onClick={logout}
-              className="shrink-0 rounded-lg p-1.5 text-red-500 hover:bg-white/5"
-              aria-label="Выйти"
+              key={id}
+              onClick={() => setTab(id)}
+              className={`flex shrink-0 items-center gap-3 rounded-full px-3.5 py-2.5 text-sm font-bold transition ${
+                tab === id
+                  ? 'bg-[#3DA35D] text-white'
+                  : 'text-stone-400 hover:bg-white/5 hover:text-stone-200'
+              }`}
             >
-              <LogOut size={16} />
+              <span
+                className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                  tab === id ? 'bg-white' : 'bg-stone-500'
+                }`}
+              />
+              {label}
             </button>
-          </div>
-        </aside>
+          ))}
+        </nav>
 
-        {/* Content */}
-        <div className="flex-1">
+        <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 lg:mt-6">
+          <div className="h-9 w-9 shrink-0 rounded-full bg-stone-600" />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-bold text-white">{displayName}</p>
+            <p className="truncate text-xs font-semibold text-[#3DA35D]">
+              {profile?.role === 'farmer' ? 'Фермер' : 'Покупатель'}
+              {(profile as ProfileData & { is_vip?: boolean })?.is_vip ? ' · VIP' : ''}
+            </p>
+          </div>
+          <button
+            onClick={logout}
+            className="shrink-0 rounded-lg p-1.5 text-red-500 hover:bg-white/5"
+            aria-label="Выйти"
+          >
+            <LogOut size={16} />
+          </button>
+        </div>
+      </aside>
+
+      {/* Content — на десктопе сдвинут вправо на ширину фиксированной панели */}
+      <div className="lg:pl-64">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+          <div className="flex-1">
           {loading ? (
             <div className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
               <p className="text-sm text-stone-400">Загрузка...</p>
@@ -984,6 +988,7 @@ export default function Profile() {
             </>
           )}
         </div>
+      </div>
       </div>
     </div>
   )

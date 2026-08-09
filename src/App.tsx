@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Categories from './components/Categories'
@@ -30,9 +30,14 @@ function HomePage() {
 }
 
 function App() {
+  const location = useLocation()
+  // На странице профиля у нас свой собственный layout (тёмный сайдбар),
+  // поэтому общий Header/Footer сайта там не нужен.
+  const isProfilePage = location.pathname.startsWith('/profile')
+
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-stone-900">
-      <Header />
+      {!isProfilePage && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
@@ -40,7 +45,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-      <Footer />
+      {!isProfilePage && <Footer />}
     </div>
   )
 }
