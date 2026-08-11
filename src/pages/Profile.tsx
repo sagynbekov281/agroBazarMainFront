@@ -21,6 +21,7 @@ import { useAuth } from '../context/AuthContext'
 import { getMyProfile, updateMyProfile } from '../api/profile'
 import type { ProfileData } from '../api/profile'
 import { mockMessages } from '../data/profileMock'
+import { isAxiosError } from 'axios'
 
 // Брендовые цвета AgroBazar — вынесите в tailwind.config при желании:
 // brand.green = '#3DA35D', brand.amber = '#E3A83F', brand.dark = '#242424'
@@ -149,6 +150,7 @@ export default function Profile() {
   const [form, setForm] = useState<Partial<ProfileData> & { email?: string | null }>({})
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState('')
   const [activeChatId, setActiveChatId] = useState<string | number | null>(null)
   const [draft, setDraft] = useState('')
 
@@ -174,6 +176,8 @@ export default function Profile() {
 
   useEffect(() => {
     if (!isAuthenticated) return
+    setLoading(true)
+    setLoadError('')
     getMyProfile()
       .then(({ data }) => {
         setProfile(data)
@@ -181,6 +185,23 @@ export default function Profile() {
           ...data,
           email: data.email ?? undefined,
         })
+      })
+      .catch((err) => {
+        // Раньше здесь не было catch — ошибка молча проглатывалась,
+        // и форма оставалась пустой без каких-либо признаков проблемы.
+        console.error('Не удалось загрузить профиль (/profiles/me):', err)
+        if (isAxiosError(err)) {
+          const status = err.response?.status
+          if (status === 401) {
+            setLoadError('Сессия истекла или токен недействителен — попробуйте выйти и войти заново.')
+          } else {
+            setLoadError(
+              `Не удалось загрузить профиль (код ${status ?? 'сети'}). Подробности — в консоли браузера.`
+            )
+          }
+        } else {
+          setLoadError('Не удалось загрузить профиль. Подробности — в консоли браузера.')
+        }
       })
       .finally(() => setLoading(false))
   }, [isAuthenticated])
@@ -273,6 +294,11 @@ export default function Profile() {
       <div className="lg:pl-64">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="flex-1">
+          {loadError && (
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700">
+              {loadError}
+            </div>
+          )}
           {loading ? (
             <div className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm">
               <p className="text-sm text-stone-400">Загрузка...</p>

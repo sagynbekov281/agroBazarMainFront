@@ -36,9 +36,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (name) {
         localStorage.setItem('user_display_name', name)
         setDisplayName(name)
+      } else {
+        // Профиль загрузился, но first_name/last_name пустые —
+        // это значит, что бэкенд их не сохранил при регистрации.
+        console.warn(
+          '/profiles/me вернул профиль без имени/фамилии — проверьте, сохраняет ли /auth/register эти поля:',
+          data
+        )
       }
-    } catch {
-      // профиль пока недоступен — молча оставляем то, что уже было
+    } catch (err) {
+      // Раньше здесь ошибка проглатывалась молча — теперь логируем,
+      // чтобы было видно, если /profiles/me отвечает 401 или падает.
+      console.error('Не удалось получить /profiles/me в refreshDisplayName:', err)
     }
   }
 
